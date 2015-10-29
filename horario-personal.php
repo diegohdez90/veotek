@@ -1,0 +1,41 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+
+
+
+<body>
+<?php
+$usuario = $_GET['usuario'];
+?>
+	<div class="container">
+		<div class="row">
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>Hora de entrada</th>
+						<th>Hora de salida</th>
+					</tr>
+					<?php
+						include('conexion.php');
+						$usuario = $_GET['usuario'];
+						$datos = "select * from horario where usuario_idusuario = '$usuario'";
+						$horario = mysql_query($datos, $conexion) or die(mysql_error());
+						$totEmp = mysql_num_rows($horario);
+						while ($rows = mysql_fetch_assoc($horario)) {
+							echo "<tr>";
+							$entrada = $rows['entrada'];
+							echo "<td>".$entrada."</td>";
+							$salida = $rows['salida'];
+							echo "<td>".$salida."</td>";
+							echo "</tr>";
+						}
+						
+					?>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</body>
