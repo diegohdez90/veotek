@@ -17,7 +17,7 @@ Reportes. En esta página se pueden obtener los reportes de cada empleado, y sus
 Administrador. Este vínculo hace un enlace hacia un login de administrador de este sistema.
 
 
-A continuació se describen las paginas de la aplicación:
+A continuación se describen las paginas de la aplicación:
 
 Index.
 
