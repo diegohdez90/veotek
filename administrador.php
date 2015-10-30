@@ -75,8 +75,6 @@ echo "
 echo "			</table>	
 			</div>
 		</div>
-		<div class='row'>
-		</div>
 ";
 
 		print "";

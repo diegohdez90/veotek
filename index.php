@@ -21,7 +21,6 @@
 				<li><a href="index.php">Inicio</a></li>
 				<li><a href="bitacora.php">Bitacora</a></li>
 				<li><a href="administrador.php">Administrador</a></li>
-				<li><a href="reportes.php">Reportes</a></li>
 			</ul>
 		</div>
 		<div class="register row">

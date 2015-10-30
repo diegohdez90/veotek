@@ -17,7 +17,7 @@
 		</div>";
 		return false;
 	}
-	include('conexion.php')
+	include('conexion.php');
 	$dia = date("Y-m-d H:i:sa");
 	$usuario = $_POST['usuario'];
 	$clave = $_POST['clave'];
@@ -41,6 +41,13 @@
 				if ($total==1) {
 
 					while ($rowEmp = mysql_fetch_assoc($if_exist_entrada)) {
+						echo "<META HTTP-EQUIV='REFRESH' CONTENT='3;URL=index.php'>
+					<div class='container'>
+						<div class='error row'> 
+							<img id='cargando' src='img/cargando.gif'><br>
+							<h2 class='text-center'>Registrando salida</h2>
+						</div>
+					</div>";
 						$entrada = $rowEmp['entrada'];
 						$sql = "UPDATE horario SET salida='$dia' WHERE usuario_idusuario='$id_system' and entrada = '$entrada'";
 						$resultado = mysql_query($sql, $conexion) or die(mysql_error());
@@ -48,8 +55,13 @@
 					
 				}
 				else{
-
-					echo "Insertando horario<br>";
+							echo "<META HTTP-EQUIV='REFRESH' CONTENT='3;URL=index.php'>
+							<div class='container'>
+								<div class='error row'> 
+									<img id='cargando' src='img/cargando.gif'><br>
+									<h2 class='text-center'>Registrando entrada</h2>
+								</div>
+							</div>";
 					$sql = "insert into horario(entrada,usuario_idusuario) values('$dia','$id_system')";
 					$resultado = mysql_query($sql, $conexion) or die(mysql_error());
 

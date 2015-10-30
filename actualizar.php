@@ -192,6 +192,7 @@
 
 
                        <div class="control-group">
+                        <img src="<?php echo "$photo";?>" width="10%">
                       <label class="control-label">Foto</label>
                           <input type="file" name="image" />
                   </div>

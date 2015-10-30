@@ -20,14 +20,13 @@
 			<ul>
 				<li><a href="index.php">Inicio</a></li>
 				<li><a href="bitacora.php">Bitacora</a></li>
-				<li><a href="reportes.php">Reportes</a></li>
 				<li><a href="administrador.php">Administrador</a></li>
 			</ul>
 		</div>
 		<div class="register row">
 			<form action="inicio.php" method="post" ctype="multipart/form-data">
-				<label>Numero de empleado</label><input value="numero" name="login">
-				<label>Nombre de Usuario</label><input type="password" value="usuario" name="password">
+				<label>Numero de empleado</label><input placeholder="Numero de empleado" name="login">
+				<label>Nombre de Usuario</label><input type="password" placeholder="Nombre de usuario" name="password">
 				<input type="submit" value="Iniciar sesi&oacute;n">
 			</form>
 		</div>
