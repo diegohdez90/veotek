@@ -9,127 +9,132 @@
   <script src="js/bootstrap.min.js"></script>
 </head>
 <?php
-  $id = null;
-  if ( !empty($_GET['id'])) {
-      $id = $_REQUEST['id'];
-  }
-   
-  if ( null==$id ) {
-      //header("Location: administrador.php");
-  }
 
-  if ( !empty($_POST)) {
-    $idError = null;
-    $nameError = null;
-    $lastnameError = null;
-    $modeError = null;
-    $photoError = null;
-    $userError = null;
+include ('funciones.php');
+  if (verificar_usuario()){
 
-    $name = $_POST['nombre'];
-    $lastname = $_POST['apellidos'];
-    $mode = $_POST['privilegios'];
-    $username = $_POST['usuario'];
-    $userid = $_POST['userid'];
 
-    $valid = true;
-    if (empty($id)) {
-        $idError = 'De un id de personal';
-        $valid = false;
+    $id = null;
+    if ( !empty($_GET['id'])) {
+        $id = $_REQUEST['id'];
     }
      
-    if (empty($name)) {
-        $nameError = 'De un nombre';
-        $valid = false;
-    }
-    
-    if (empty($lastname)) {
-        $lastnameError = 'De los apellidos';
-        $valid = false;
-    }
-         
-        
-  $picture_tmp = $_FILES['image']['tmp_name'];
-    $picture_name = $_FILES['image']['name'];
-    $picture_type = $_FILES['image']['type'];
-
-    $allowed_type = array('image/png', 'image/gif', 'image/jpg', 'image/jpeg');
-
-    if(in_array($picture_type, $allowed_type)) {
-        $path = 'img/profiles/'.$picture_name; //change this to your liking
-         move_uploaded_file($picture_tmp, $path);
-    } else {
-        $error[] = 'File type not allowed';
-        $valid=false;
+    if ( null==$id ) {
+        //header("Location: administrador.php");
     }
 
-    
-        // insert data
-        if ($valid) {
-          include('conexion.php');
+    if ( !empty($_POST)) {
+      $idError = null;
+      $nameError = null;
+      $lastnameError = null;
+      $modeError = null;
+      $photoError = null;
+      $userError = null;
 
-          $update_user = "update usuario set nombre ='$username' where idusuario=  '$userid'";
-          $update = mysql_query($update_user, $conexion) or die(mysql_error());
-                    
-          $update_info = "update personal set nombre = '$name', apellidos = '$lastname', privilegios_idprivilegios = '$mode', usuario_idusuario = '$userid', foto = '$path' where idpersonal = '$id'";
+      $name = $_POST['nombre'];
+      $lastname = $_POST['apellidos'];
+      $mode = $_POST['privilegios'];
+      $username = $_POST['usuario'];
+      $userid = $_POST['userid'];
 
-          $resultado = mysql_query($update_info, $conexion) or die(mysql_error());
+      $valid = true;
+      if (empty($id)) {
+          $idError = 'De un id de personal';
+          $valid = false;
+      }
+       
+      if (empty($name)) {
+          $nameError = 'De un nombre';
+          $valid = false;
+      }
+      
+      if (empty($lastname)) {
+          $lastnameError = 'De los apellidos';
+          $valid = false;
+      }
+           
+          
+      $picture_tmp = $_FILES['image']['tmp_name'];
+      $picture_name = $_FILES['image']['name'];
+      $picture_type = $_FILES['image']['type'];
 
-          if ($resultado) {
-            echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=administrador.php'>
-            <div class='container'>
-              <div class='error row'> 
-                <img id='cargando' src='img/cargando.gif'><br>
-                <h2 class='text-center'>Informaci&oacute;n actualizada correctamente</h2>
-              </div>
-            </div>";
-            return true;
+      $allowed_type = array('image/png', 'image/gif', 'image/jpg', 'image/jpeg');
+
+      if(in_array($picture_type, $allowed_type)) {
+          $path = 'img/profiles/'.$picture_name; //change this to your liking
+           move_uploaded_file($picture_tmp, $path);
+      } else {
+          $error[] = 'File type not allowed';
+          $valid=false;
+      }
+
+      
+          // insert data
+          if ($valid) {
+            include('conexion.php');
+
+            $update_user = "update usuario set nombre ='$username' where idusuario=  '$userid'";
+            $update = mysql_query($update_user, $conexion) or die(mysql_error());
+                      
+            $update_info = "update personal set nombre = '$name', apellidos = '$lastname', privilegios_idprivilegios = '$mode', usuario_idusuario = '$userid', foto = '$path' where idpersonal = '$id'";
+
+            $resultado = mysql_query($update_info, $conexion) or die(mysql_error());
+
+            if ($resultado) {
+              echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=administrador.php'>
+              <div class='container'>
+                <div class='error row'> 
+                  <img id='cargando' src='img/cargando.gif'><br>
+                  <h2 class='text-center'>Informaci&oacute;n actualizada correctamente</h2>
+                </div>
+              </div>";
+              return true;
+            }
+            else{
+              echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=administrador.php'>
+              <div class='container'>
+                <div class='error row'> 
+                  <img id='cargando' src='img/cargando.gif'><br>
+                  <h2 class='text-center'>Informaci&oacute;n no actualizada correctamente</h2>
+                </div>
+              </div>";
+              return false;
+            }
+
           }
           else{
-            echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=administrador.php'>
-            <div class='container'>
-              <div class='error row'> 
-                <img id='cargando' src='img/cargando.gif'><br>
-                <h2 class='text-center'>Informaci&oacute;n no actualizada correctamente</h2>
-              </div>
-            </div>";
-            return false;
+        echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=administrador.php'>
+        <div class='container'>
+        <div class='error row'> 
+          <img id='cargando' src='img/cargando.gif'><br>
+          <h2 class='text-center'>Informaci&oacute;n no recibida</h2>
+        </div>
+      </div>";
+        }
+      }
+      else
+      {
+        include('conexion.php');
+        $personal = "select * from personal where idpersonal = '$id'";
+        $informacion = mysql_query($personal, $conexion) or die(mysql_error());
+        while ($rows = mysql_fetch_assoc($informacion)) {
+            $namecomplete = $rows["nombre"].' '.$rows['apellidos'];
+            $name = $rows['nombre'];
+            $lastname = $rows['apellidos'];
+            $photo = $rows['foto'];
+            $mode = $rows['privilegios_idprivilegios'];
+            $userid = $rows['usuario_idusuario'];
+        }
+
+
+          $system = "select nombre from usuario where idusuario = '$userid'";
+          $user = mysql_query($system, $conexion) or die(mysql_error());
+          while ($rows = mysql_fetch_assoc($user)) {
+              $username = $rows['nombre'];
           }
 
-        }
-        else{
-      echo "<META HTTP-EQUIV='REFRESH' CONTENT='5;URL=administrador.php'>
-      <div class='container'>
-      <div class='error row'> 
-        <img id='cargando' src='img/cargando.gif'><br>
-        <h2 class='text-center'>Informaci&oacute;n no recibida</h2>
-      </div>
-    </div>";
       }
-    }
-    else
-    {
-      include('conexion.php');
-      $personal = "select * from personal where idpersonal = '$id'";
-      $informacion = mysql_query($personal, $conexion) or die(mysql_error());
-      while ($rows = mysql_fetch_assoc($informacion)) {
-          $namecomplete = $rows["nombre"].' '.$rows['apellidos'];
-          $name = $rows['nombre'];
-          $lastname = $rows['apellidos'];
-          $photo = $rows['foto'];
-          $mode = $rows['privilegios_idprivilegios'];
-          $userid = $rows['usuario_idusuario'];
-      }
-
-
-        $system = "select nombre from usuario where idusuario = '$userid'";
-        $user = mysql_query($system, $conexion) or die(mysql_error());
-        while ($rows = mysql_fetch_assoc($user)) {
-            $username = $rows['nombre'];
-        }
-
-    }
-    
+      
 
     
   ?>
@@ -217,6 +222,11 @@
 
                     </form>
                 </div>
+<?php
+} else {
+      header('Location:administrador.php');
+    }
+?>
                  
     </div> <!-- /container -->
   </body>

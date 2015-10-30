@@ -12,40 +12,46 @@
 
 
 <?php
-    include('conexion.php');
-    $id = null;
-    if ( !empty($_GET['id'])) {
-        $id = $_REQUEST['id'];
-    }
-     
-    if ( null==$id ) {
-        header("Location:administrador.php");
-    } 
-    else {
-        $datos = "select idpersonal,concat(nombre,' ',apellidos) as Nombre,foto,privilegios_idprivilegios, usuario_idusuario from personal where idpersonal = '$id'";
-        $informacion = mysql_query($datos, $conexion) or die(mysql_error());
-        while ($rows = mysql_fetch_assoc($informacion)) {
-            $idpersonal = $rows['idpersonal'];
-            $nombre = $rows["Nombre"];
-            $foto = $rows['foto'];
-            $privilegios = $rows['privilegios_idprivilegios'];
-            $user_id = $rows['usuario_idusuario'];
-        }
 
-        $user_system = "select nombre from usuario where idusuario = '$user_id'";
-        $informacion = mysql_query($user_system, $conexion) or die(mysql_error());
-        while ($rows = mysql_fetch_assoc($informacion)) {
-            $userename = $rows['nombre'];
-        }
+include ('funciones.php');
+    if (verificar_usuario()){
 
-        $mode = "select modo from privilegios where idprivilegios = '$privilegios'";
-        $informacion = mysql_query($mode, $conexion) or die(mysql_error());
-        while ($rows = mysql_fetch_assoc($informacion)) {
-            $useremode = $rows['modo'];
-        }
 
-                        
-    }
+
+        include('conexion.php');
+        $id = null;
+        if ( !empty($_GET['id'])) {
+            $id = $_REQUEST['id'];
+        }
+         
+        if ( null==$id ) {
+            header("Location:administrador.php");
+        } 
+        else {
+            $datos = "select idpersonal,concat(nombre,' ',apellidos) as Nombre,foto,privilegios_idprivilegios, usuario_idusuario from personal where idpersonal = '$id'";
+            $informacion = mysql_query($datos, $conexion) or die(mysql_error());
+            while ($rows = mysql_fetch_assoc($informacion)) {
+                $idpersonal = $rows['idpersonal'];
+                $nombre = $rows["Nombre"];
+                $foto = $rows['foto'];
+                $privilegios = $rows['privilegios_idprivilegios'];
+                $user_id = $rows['usuario_idusuario'];
+            }
+
+            $user_system = "select nombre from usuario where idusuario = '$user_id'";
+            $informacion = mysql_query($user_system, $conexion) or die(mysql_error());
+            while ($rows = mysql_fetch_assoc($informacion)) {
+                $userename = $rows['nombre'];
+            }
+
+            $mode = "select modo from privilegios where idprivilegios = '$privilegios'";
+            $informacion = mysql_query($mode, $conexion) or die(mysql_error());
+            while ($rows = mysql_fetch_assoc($informacion)) {
+                $useremode = $rows['modo'];
+            }
+
+                            
+        }
 ?>
  
 
@@ -88,7 +94,11 @@
            </div>
         </div>
 
-                     
+<?php
+    } else {
+                header('Location:administrador.php');
+            }
+?>  
                     
                  
     </div> <!-- /container -->

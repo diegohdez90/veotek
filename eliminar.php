@@ -11,41 +11,44 @@
 
 
 <?php
-    include('conexion.php');
-    $id = 0;
-     
-    if ( !empty($_GET['id'])) {
-        $id = $_REQUEST['id'];
-    }
-    if ( !empty($_POST)) {
-        
-        $id = $_POST['id'];
+include ('funciones.php');
+    if (verificar_usuario()){
+
+        include('conexion.php');
+        $id = 0;
          
-        $iduser = "select usuario_idusuario from personal where idpersonal = '$id'";
-        $info = mysql_query($iduser, $conexion) or die(mysql_error());
-        while ($rows = mysql_fetch_assoc($info)) {
-            $user = $rows['usuario_idusuario'];
+        if ( !empty($_GET['id'])) {
+            $id = $_REQUEST['id'];
         }
+        if ( !empty($_POST)) {
+            
+            $id = $_POST['id'];
+             
+            $iduser = "select usuario_idusuario from personal where idpersonal = '$id'";
+            $info = mysql_query($iduser, $conexion) or die(mysql_error());
+            while ($rows = mysql_fetch_assoc($info)) {
+                $user = $rows['usuario_idusuario'];
+            }
 
-        echo $user;
-        $delete = "delete from personal where idpersonal = '$id'";
-        $info_delete = mysql_query($delete, $conexion) or die(mysql_error());
+            echo $user;
+            $delete = "delete from personal where idpersonal = '$id'";
+            $info_delete = mysql_query($delete, $conexion) or die(mysql_error());
 
-        $delete_user = "delete from usuario where idusuario = '$user'";
-        $user_delete = mysql_query($delete_user, $conexion) or die(mysql_error());
+            $delete_user = "delete from usuario where idusuario = '$user'";
+            $user_delete = mysql_query($delete_user, $conexion) or die(mysql_error());
 
-        if($info_delete && $user_delete){
-            echo "<META HTTP-EQUIV=0REFRESH' CONTENT='5;URL=administrador.php'>
-            <div class='container'>
-                    <div class='error row'> 
-                        <img id='cargando' src='img/cargando.gif'><br>
-                        <h2 class='text-center'>Se elimino el usuario</h2>
-                    </div>
-                </div>";
-                return true;
+            if($info_delete && $user_delete){
+                echo "<META HTTP-EQUIV=0REFRESH' CONTENT='5;URL=administrador.php'>
+                <div class='container'>
+                        <div class='error row'> 
+                            <img id='cargando' src='img/cargando.gif'><br>
+                            <h2 class='text-center'>Se elimino el usuario</h2>
+                        </div>
+                    </div>";
+                    return true;
+            }
+
         }
-
-    }
     ?>
 
     <div class="container">
@@ -80,7 +83,12 @@
                         </div>
                     </form>
                 </div>
-                 
+<?php
+    } else {
+                header('Location:administrador.php');
+            }
+?>  
+
     </div> <!-- /container -->
   </body>
 </html>

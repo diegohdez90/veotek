@@ -1,3 +1,10 @@
+<?php
+
+include ('funciones.php');
+    if (verificar_usuario()){
+
+?>
+
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -93,5 +100,9 @@
 			</div>	
 		</div>
 
-
+<?php
+} else {
+			header('Location:administrador.php');
+		}
+?>
 </body>

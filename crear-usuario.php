@@ -1,6 +1,9 @@
+<?php
 
+include ('funciones.php');
+    if (verificar_usuario()){
 
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,7 +115,11 @@
 
                     </form>
                 </div>
-                 
+              <?php
+              } else {
+      header('Location:administrador.php');
+    }
+              ?>   
     </div> <!-- /container -->
   </body>
 </html>
