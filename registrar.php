@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="icon" href="img/eo.ico" type="image/gif" sizes="16x16">
-<META HTTP-EQUIV="REFRESH" CONTENT="2;URL=siguiente.php">
+<META HTTP-EQUIV="REFRESH" CONTENT="2;URL=index.php">
 </head>
 <body>
 
