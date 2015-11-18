@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/imprimir.css">
+    <link rel="icon" href="img/eo.ico" type="image/gif" sizes="16x16">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </head>

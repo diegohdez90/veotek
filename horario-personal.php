@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="icon" href="img/eo.ico" type="image/gif" sizes="16x16">
 </head>
 
 
