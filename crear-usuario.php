@@ -43,13 +43,20 @@ include ('funciones.php');
              
                     <form class="form-horizontal" action="add-user.php" method="post" enctype="multipart/form-data">
 
-                    <div class="control-group <?php echo !empty($idError)?'error':'';?>">
-                      <label class="control-label">ID Personal</label>
-                          <input name="id" class="form-control" type="text"  placeholder="ID Personal" value="<?php echo !empty($id)?$id:'';?>">
-                          <?php if (!empty($idError)): ?>
-                              <span class="help-inline"><?php echo $idError;?></span>
-                          <?php endif; ?>
-                    </div>
+                    <div class="control-group">
+
+                      <fieldset disabled>
+                        <div class="control-group <?php echo !empty($idError)?'error':'';?>">
+                          <label class="control-label" for="disabledTextInput">ID Personal</label>
+                          <input class="form-control" name="id" type="text" id="disabledTextInput" placeholder="ID Personal" value="<?php                             include('conexion.php');
+                            $max = 'select max(idpersonal) as max from personal';
+                            $result = mysql_query($max, $conexion) or die(mysql_error());
+                            while ($rows = mysql_fetch_assoc($result)) {
+                               $id = $rows['max']+1;
+                               echo $id;
+                            }?>">
+                        </div>
+                      </fieldset>
 
                     <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
                       <label class="control-label">Nombre</label>

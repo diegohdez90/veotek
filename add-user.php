@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="icon" href="img/eo.ico" type="image/gif" sizes="16x16">
-<META HTTP-EQUIV="REFRESH" CONTENT="5;URL=administrador.php">
+<META HTTP-EQUIV="REFRESH" CONTENT="2;URL=administrador.php">
 </head>
 
 
@@ -12,25 +12,19 @@
 
 <?php
 	if ( !empty($_POST)) {
-		$idError = null;
+//		$idError = null;
         $nameError = null;
         $lastnameError = null;
         $modeError = null;
         $photoError = null;
         $userError = null;
 
-        $id = $_POST['id'];
         $name = $_POST['nombre'];
         $lastname = $_POST['apellidos'];
         $mode = $_POST['privilegios'];
         $username = $_POST['usuario'];
 
-        $valid = true;
-        if (empty($id)) {
-            $idError = 'De un id de personal';
-            $valid = false;
-        }
-         
+        $valid = true;        
         if (empty($name)) {
             $nameError = 'De un nombre';
             $valid = false;
@@ -58,7 +52,9 @@
 
 
        
+?>
 
+<?php
         
 
 		
@@ -69,16 +65,6 @@
         	$exist_user = "select count(*) from usuario where nombre='$username'";
         	$results = mysql_query($exist_user, $conexion) or die(mysql_error());
         	$total = mysql_num_rows($results);
-
-        	if($total>0){
-        		echo "<div class='container'>
-						<div class='error row'> 
-							<img id='cargando' src='img/cargando.gif'><br>
-							<h2 class='text-center'>Clave de empleado repetido</h2>
-						</div>
-					</div>";
-					return false;
-        	}
 
         	$insert_user = "insert into usuario(nombre) values('$username') ";
         	$insert_new_user = mysql_query($insert_user, $conexion) or die(mysql_error());
@@ -93,23 +79,7 @@
 				}
 
 
-				$exist_w = "select count(*) as veces from personal where idpersonal='$id'";
-	        	$results = mysql_query($exist_w, $conexion) or die(mysql_error());
-	        	$total = mysql_num_rows($results);
-
-	        	if($total>0){
-	        		echo "<div class='container'>
-							<div class='error row'> 
-								<img id='cargando' src='img/cargando.gif'><br>
-								<h2 class='text-center'>Clave de empleado repetido</h2>
-							</div>
-						</div>";
-						return false;
-	        	}
-
-
-
-				$sql = "insert into personal(idpersonal,nombre,apellidos,foto,privilegios_idprivilegios,usuario_idusuario) values('$id','$name','$lastname','$path','$mode','$id_system')";
+				$sql = "insert into personal(nombre,apellidos,foto,privilegios_idprivilegios,usuario_idusuario) values('$name','$lastname','$path','$mode','$id_system')";
 				$resultado = mysql_query($sql, $conexion) or die(mysql_error());
 
 				echo "<div class='container'>

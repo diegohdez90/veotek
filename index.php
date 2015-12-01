@@ -42,8 +42,11 @@
 					<th>Hora de salida</th>
 				</tr>
 				<?php
+					$hoy = date("Y-m-d");
+					$dateTime = new dateTime("tomorrow");
+					$tomorrow = $dateTime->format("Y-m-d");
 					include('conexion.php');
-					$datos = "select idpersonal,nombre,apellidos,entrada,salida from horario,personal where personal.usuario_idusuario = horario.usuario_idusuario order by entrada desc";
+					$datos = "select idpersonal,nombre,apellidos,entrada,salida from horario,personal where entrada >= '$hoy' and entrada <= '$tomorrow' and personal.usuario_idusuario = horario.usuario_idusuario order by entrada desc";
 					$horario = mysql_query($datos, $conexion) or die(mysql_error());
 					$totEmp = mysql_num_rows($horario);
 					while ($rows = mysql_fetch_assoc($horario)) {
@@ -60,7 +63,11 @@
 						echo "<td>".$salida."</td>";
 						echo "</tr>";
 					}
-					
+					$ayer = date("Y-m-d",strtotime("-1 days"));
+					$entradaAyer = date("Y-m-d 17:30:00",strtotime("-1 days"));
+					$salida = date("Y-m-d 20:30:00",strtotime("-1 days"));
+					$datos = "update horario set salida='$salida' where entrada >= '$ayer'and entrada <= '$entradaAyer' and salida IS NULL";					
+					$actualizar = mysql_query($datos, $conexion) or die(mysql_error());
 				?>
 			</table>
 		</div>
