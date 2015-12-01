@@ -32,8 +32,7 @@ include ('funciones.php');
 				<li><a href="reportes.php">Reportes</a></li>
 			</ul>
 		</div>
-		<div class=" row">
-			<div class="actividades">
+		<div class=" row actividades">
 				<h2>Bitacora</h2>
 
 				<label><b>Personal<b></label><br>
@@ -63,14 +62,12 @@ include ('funciones.php');
 				<form action="bitacora-mensual.php" method="get" enctype="multipart/form-data">
 					<label><b>Mensual<b></label><br>
 				    <input type="month" name="month"><input type="submit" id="submit" value="Buscar" ></form>
-			</div>
+
 			
 		</div>
 
-	</div>
 
-	<div class="container">
-		<div class="horario">
+		<div class="row horario">
 				<h2>Horario</h2>
 
 				<form action="horario-personal.php" method="get" enctype="multipart/form-data">
@@ -100,6 +97,7 @@ include ('funciones.php');
 				    <input type="month" name="month"><input type="submit" id="submit" value="Buscar" ></form>
 			</div>	
 		</div>
+
 
 <?php
 } else {
